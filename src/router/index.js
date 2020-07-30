@@ -11,23 +11,23 @@ const routes = [
     component: Home
   },
   {
-    path: '/user',
-    component: () => import('../layouts/UserLayout.vue'),
+    path: "/user",
+    component: () => import("../layouts/UserLayout.vue"),
     children: [
       {
-        path: '/user',
-        redirect: '/user/login',
+        path: "/user",
+        redirect: "/user/login"
       },
       {
-        path: '/user/login',
-        name: 'login',
-        component: () => import('../views/User/Login.vue')
+        path: "/user/login",
+        name: "login",
+        component: () => import("../views/User/Login.vue")
       },
       {
-        path: '/user/register',
-        name: 'register',
-        component: () => import('../views/User/Register.vue')
-      },
+        path: "/user/register",
+        name: "register",
+        component: () => import("../views/User/Register.vue")
+      }
     ]
   },
   {
