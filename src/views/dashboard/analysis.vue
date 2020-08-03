@@ -1,5 +1,7 @@
 <template>
-  <div class="sider-menu"></div>
+  <div class="analysis">
+    hhh
+  </div>
 </template>
 
 <script>

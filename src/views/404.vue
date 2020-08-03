@@ -1,5 +1,5 @@
 <template>
-  <div class="sider-menu"></div>
+  <div>404</div>
 </template>
 
 <script>
