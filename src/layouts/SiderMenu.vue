@@ -1,14 +1,18 @@
 <template>
   <div style="width: 256px">
     <a-menu
-      :default-selected-keys="['1']"
-      :default-open-keys="['2']"
+      :selected-keys="selectedKeys"
+      :open-keys.sync="openKeys"
       mode="inline"
       :theme="theme"
       :inline-collapsed="collapsed"
     >
       <template v-for="item in menuData">
-        <a-menu-item v-if="!item.children" :key="item.path">
+        <a-menu-item
+          v-if="!item.children"
+          :key="item.path"
+          @click="handleClickMenuItem(item)"
+        >
           <a-icon v-if="item.meta.icon" :type="item.meta.icon" />
           <span>{{ item.meta.title }}</span>
         </a-menu-item>
@@ -19,26 +23,6 @@
 </template>
 
 <script>
-// recommend use functional component
-// <template functional>
-//   <a-sub-menu :key="props.menuInfo.key">
-//     <span slot="title">
-//       <a-icon type="mail" /><span>{{ props.menuInfo.title }}</span>
-//     </span>
-//     <template v-for="item in props.menuInfo.children">
-//       <a-menu-item v-if="!item.children" :key="item.key">
-//         <a-icon type="pie-chart" />
-//         <span>{{ item.title }}</span>
-//       </a-menu-item>
-//       <sub-menu v-else :key="item.key" :menu-info="item" />
-//     </template>
-//   </a-sub-menu>
-// </template>
-// export default {
-//   props: ['menuInfo'],
-// };
-
-// import { Menu } from 'ant-design-vue';
 import SubMenu from "./SubMenu";
 export default {
   components: {
@@ -51,26 +35,58 @@ export default {
     }
   },
   data() {
+    this.selectedKeysMap = {};
+    this.openKeysMap = {};
     const menuData = this.getMenuData(this.$router.options.routes);
     return {
       collapsed: false,
       list: [],
-      menuData
+      menuData,
+      selectedKeys: this.selectedKeysMap[this.$route.path],
+      openKeys: this.collapsed ? [] : this.openKeysMap[this.$route.path]
     };
+  },
+  watch: {
+    "$route.path": function(val) {
+      this.selectedKeys = this.selectedKeysMap[val];
+      this.openKeys = this.collapsed ? [] : this.selectedKeysMap[val];
+    }
+  },
+  mounted() {
+    console.log("this.selectedKeys", this.selectedKeys);
+    // console.log("!@@@@", this.selectedKeys, this.openKeys)
   },
   methods: {
     toggleCollapsed() {
       this.collapsed = !this.collapsed;
     },
-    getMenuData(routes) {
+    getMenuData(routes = [], parentKeys = [], selectedKey) {
       const menuData = [];
       routes.forEach(v => {
         if (v.name && !v.hideInMenu) {
+          this.openKeysMap[v.path] = parentKeys;
+          console.log(
+            "this.selectedKeysMap",
+            this.selectedKeysMap,
+            "openKeysMap",
+            this.openKeysMap
+          );
+          this.selectedKeysMap[v.path] = [v.path || selectedKey];
           const newItem = { ...v };
           // ? 为何删除 Children
           delete newItem.children;
           if (v.children && !v.hideChildrenInMenu) {
-            newItem.children = this.getMenuData(v.children);
+            newItem.children = this.getMenuData(v.children, [
+              ...parentKeys,
+              v.path
+            ]);
+          } else {
+            // 主要给分页表单做处理的 去生成 openKeysMap
+            this.getMenuData(
+              v.children,
+              selectedKey ? parentKeys : [...parentKeys, v.path],
+              selectedKey || v.path
+            );
           }
           menuData.push(newItem);
         } else if (!v.hideInMenu && !v.hideChildrenInMenu && v.children) {
@@ -78,6 +94,10 @@ export default {
         }
       });
       return menuData;
+    },
+    handleClickMenuItem(item) {
+      console.log("handleClickMenuItem", item.path);
+      this.$router.push({ path: item.path });
     }
   }
 };
