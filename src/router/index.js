@@ -8,10 +8,12 @@ import BasicLayout from "../layouts/BasicLayout";
 
 Vue.use(VueRouter);
 
+// 约定带 name 的组件渲染到 Menu 中
+
 const routes = [
   {
     path: "/",
-    name: "Home",
+    // name: "Home",
     component: BasicLayout,
     redirect: "/dashboard",
     children: [
@@ -23,10 +25,12 @@ const routes = [
         path: "/dashboard",
         name: "dashboard",
         component: { render: h => h("router-view") },
+        meta: { icon: "dashboard", title: "仪表盘" },
         children: [
           {
             path: "/dashboard/analysis",
             name: "analysis",
+            meta: { title: "分析页" },
             component: () => import("../views/dashboard/analysis")
           }
         ]
@@ -36,6 +40,7 @@ const routes = [
   {
     path: "/user",
     component: () => import("../layouts/UserLayout.vue"),
+    hideInMenu: true,
     children: [
       {
         path: "/user",
@@ -54,11 +59,12 @@ const routes = [
     ]
   },
   // {
-  //   path: ""
+  //   path: "form/step-form"
   // },
   {
     path: "/about",
     name: "About",
+    hideInMenu: true,
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
@@ -67,6 +73,7 @@ const routes = [
   },
   {
     path: "*",
+    hideInMenu: true,
     component: NotFound
   }
 ];
