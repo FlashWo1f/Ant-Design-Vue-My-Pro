@@ -24,6 +24,7 @@
 
 <script>
 import SubMenu from "./SubMenu";
+import { check } from '@/utils/auth'
 export default {
   components: {
     "sub-menu": SubMenu
@@ -62,7 +63,11 @@ export default {
     },
     getMenuData(routes = [], parentKeys = [], selectedKey) {
       const menuData = [];
-      routes.forEach(v => {
+      for (let v of routes) {
+        if (v.meta && v.meta.authority && !check(v.meta.authority)) {
+          // continue 跳出本次循环  不能用 break  会结束整个循环
+          continue
+        }
         if (v.name && !v.hideInMenu) {
           this.openKeysMap[v.path] = parentKeys;
           console.log(
@@ -92,12 +97,13 @@ export default {
         } else if (!v.hideInMenu && !v.hideChildrenInMenu && v.children) {
           menuData.push(...this.getMenuData(v.children));
         }
-      });
+      }
+      
       return menuData;
     },
     handleClickMenuItem(item) {
       console.log("handleClickMenuItem", item.path);
-      this.$router.push({ path: item.path });
+      this.$router.push({ path: item.path, query: this.$route.query });
     }
   }
 };
