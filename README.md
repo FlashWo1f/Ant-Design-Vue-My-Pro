@@ -5,3 +5,10 @@
 bug: 
 1. 点击menu item 会报错 不能重复push 相同的path
 2. openKey 的问题
+
+feat: 
+
+Authority 的两种实现方式
+组件式 弊端 不够简洁
+
+指令式  弊端 不够灵活
