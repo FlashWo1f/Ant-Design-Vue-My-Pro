@@ -50,11 +50,11 @@ export default {
   watch: {
     "$route.path": function(val) {
       this.selectedKeys = this.selectedKeysMap[val];
-      this.openKeys = this.collapsed ? [] : this.selectedKeysMap[val];
+      this.openKeys = this.collapsed ? [] : this.openKeysMap[val];
     }
   },
   mounted() {
-    console.log("this.selectedKeys", this.selectedKeys);
+    console.log("UUUUUUU", this.$route)
     // console.log("!@@@@", this.selectedKeys, this.openKeys)
   },
   methods: {
@@ -70,12 +70,12 @@ export default {
         }
         if (v.name && !v.hideInMenu) {
           this.openKeysMap[v.path] = parentKeys;
-          console.log(
-            "this.selectedKeysMap",
-            this.selectedKeysMap,
-            "openKeysMap",
-            this.openKeysMap
-          );
+          // console.log(
+          //   "this.selectedKeysMap",
+          //   this.selectedKeysMap,
+          //   "openKeysMap",
+          //   this.openKeysMap
+          // );
           this.selectedKeysMap[v.path] = [v.path || selectedKey];
           const newItem = { ...v };
           // ? 为何删除 Children
@@ -102,8 +102,7 @@ export default {
       return menuData;
     },
     handleClickMenuItem(item) {
-      console.log("handleClickMenuItem", item.path);
-      this.$router.push({ path: item.path, query: this.$route.query });
+      item.path !== this.$route.path && this.$router.push({ path: item.path, query: this.$route.query });
     }
   }
 };

@@ -76,7 +76,7 @@ export default {
   right: 300px;
   width: 48px;
   height: 48px;
-  line-height: 48;
+  line-height: 48px;
   background-color: #1890ff;
   color: #ffffff;
   font-size: 20px;
