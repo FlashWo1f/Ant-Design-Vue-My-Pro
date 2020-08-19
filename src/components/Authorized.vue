@@ -1,21 +1,19 @@
 <script>
-import { check } from '@/utils/auth'
+import { check } from "@/utils/auth";
 export default {
   functional: true,
   props: {
     authority: {
       type: Array,
-      required: true,
+      required: true
     }
   },
   render(h, context) {
-    const { props, scopedSlots } = context
-    console.log("///", check(props.authority))
-    return check(props.authority) ? scopedSlots.default() : null
+    const { props, scopedSlots } = context;
+    // context.children 也可以
+    return check(props.authority) ? scopedSlots.default() : null;
   }
-}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
