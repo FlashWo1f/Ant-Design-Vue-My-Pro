@@ -13,7 +13,7 @@ module.exports = {
           if (req.headers.accept.indexOf('html') !== -1) {
             console.log('Skipping proxy')
             return '/index.html'
-          } else {
+          } else if (process.env.MOCK !== 'none') {
             const name = req.path.split('/api/')[1].split('/').join('_')
             const mock = require(`./mock/${name}`)
             // 后续这里可以多导出导入一些东西，更加灵活 全能

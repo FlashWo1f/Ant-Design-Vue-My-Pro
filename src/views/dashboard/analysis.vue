@@ -6,7 +6,8 @@
 
 <script>
 import Chart from "@/components/Chart";
-import axios from "axios";
+import request from '@/utils/request'
+// import axios from "axios";
 export default {
   data() {
     return {
@@ -18,11 +19,11 @@ export default {
   },
   methods: {
     getChartData() {
-      axios
-        .get("/api/dashboard/chart", {
-          params: { ID: 12345 }
-        })
-        .then(res => {
+      request({
+        url: '/api/dashboard/chart1',
+        method: 'get',
+        params: { ID: 12345 }
+      }).then(res => {
           this.chartOption = {
             xAxis: {
               type: "category",

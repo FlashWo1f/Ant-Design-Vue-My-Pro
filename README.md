@@ -16,3 +16,9 @@ Authority 的两种实现方式
 ## mock 
 
 - 在根路径下创建一个 mock 文件夹。将项目内的请求代理到 该目录下
+
+## cross-env 
+
+在 package.json 中 新增一条命令
+
+  "serve:no-mock": "MOCK=none vue-cli-service serve",
