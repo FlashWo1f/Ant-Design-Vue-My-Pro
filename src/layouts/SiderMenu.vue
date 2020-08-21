@@ -24,7 +24,7 @@
 
 <script>
 import SubMenu from "./SubMenu";
-import { check } from '@/utils/auth'
+import { check } from "@/utils/auth";
 export default {
   components: {
     "sub-menu": SubMenu
@@ -36,6 +36,7 @@ export default {
     }
   },
   data() {
+    // 没必要监听的变量就应该放在这里。没必要放在返回的对象中，以免Vue内部给变量做没用的setter getter
     this.selectedKeysMap = {};
     this.openKeysMap = {};
     const menuData = this.getMenuData(this.$router.options.routes);
@@ -54,7 +55,7 @@ export default {
     }
   },
   mounted() {
-    console.log("UUUUUUU", this.$route)
+    console.log("UUUUUUU", this.$route);
     // console.log("!@@@@", this.selectedKeys, this.openKeys)
   },
   methods: {
@@ -66,7 +67,7 @@ export default {
       for (let v of routes) {
         if (v.meta && v.meta.authority && !check(v.meta.authority)) {
           // continue 跳出本次循环  不能用 break  会结束整个循环
-          continue
+          continue;
         }
         if (v.name && !v.hideInMenu) {
           this.openKeysMap[v.path] = parentKeys;
@@ -98,11 +99,12 @@ export default {
           menuData.push(...this.getMenuData(v.children));
         }
       }
-      
+
       return menuData;
     },
     handleClickMenuItem(item) {
-      item.path !== this.$route.path && this.$router.push({ path: item.path, query: this.$route.query });
+      item.path !== this.$route.path &&
+        this.$router.push({ path: item.path, query: this.$route.query });
     }
   }
 };
