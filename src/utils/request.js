@@ -7,7 +7,12 @@ function request(options) {
   }).catch(error => {
     const { response: { status, statusText } } = error
     notification.error({
-      message: status || '服务异常',
+      // message: status || '服务异常',
+      message: h => (
+        <div>
+          请求错误 <span style="color: red">{status || '服务异常'}</span> : {options.url}
+        </div>
+      ),
       description: statusText || '您没有权限访问，请联系管理员。'
     })
     // reject 避免走 resolve => 被.then

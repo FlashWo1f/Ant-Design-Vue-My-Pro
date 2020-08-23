@@ -22,3 +22,11 @@ Authority 的两种实现方式
 在 package.json 中 新增一条命令
 
   "serve:no-mock": "MOCK=none vue-cli-service serve",
+
+## jsx
+https://github.com/vuejs/jsx
+npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props
+
+{
+  "presets": ["@vue/babel-preset-jsx"]
+}
