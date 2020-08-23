@@ -52,8 +52,22 @@ const routes = [
             path: '/form/step',
             name: 'step-form',
             meta: { title: '分布表单' },
-            component: () => import('../views/form/stepForm.vue')
-          }
+            component: () => import('../views/form/stepForm.vue'),
+            // children: [
+            //   {
+            //     path: '/form/step/info',
+            //     name: 'step-1',
+            //     hideInMenu: true,
+            //     component: () => import('../views/form/StepForm/Step1.vue')
+            //   }
+            // ]
+          },
+          {
+            path: '/form/basic-form',
+            name: 'basic-form',
+            meta: { title: '基础表单' },
+            component: () => import('../views/form/BasicForm.vue')
+          },
         ]
       },
     ]
