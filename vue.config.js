@@ -1,3 +1,21 @@
+const path = require('path')
+
+const AntDesignThemePlugin = require('antd-theme-webpack-plugin');
+
+const options = {
+  antDir: path.join(__dirname, './node_modules/ant-design-vue'),
+  // 将本项目的style打包在一起
+  stylesDir: path.join(__dirname, './src'),
+  varFile: path.join(__dirname, './node_modules/ant-design-vue/lib/style/themes/default.less'),
+  themeVariables: ['@primary-color'],
+  mainLessFile: '',
+  generateOnce: false,
+  lessUrl: "https://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js",
+  // customColorRegexArray: [], // An array of regex codes to match your custom color variable values so that code can identify that it's a valid color. Make sure your regex does not adds false positives.
+}
+
+const themePlugin = new AntDesignThemePlugin(options);
+
 module.exports = {
   lintOnSave: false,
   devServer: {
@@ -31,11 +49,17 @@ module.exports = {
       }
     }
   },
+  configureWebpack: {
+    plugins: [themePlugin]
+  },
   css: {
     // 给 css 相关 loader 传递选项
     // https://cli.vuejs.org/zh/config/#css-loaderoptions
     loaderOptions: {
       less: {
+        modifyVars: {
+          'primary-color': '#1DA57A',
+        },
         // https://github.com/ant-design/ant-motion/issues/44
         javascriptEnabled: true
       }
