@@ -30,3 +30,43 @@ npm install @vue/babel-preset-jsx @vue/babel-helper-vue-jsx-merge-props
 {
   "presets": ["@vue/babel-preset-jsx"]
 }
+
+## i18n 国际化
+
+
+```js
+import VueI18n from 'vue-i18n'
+import enUS from '@/locale/enUS'
+import zhCN from '@/locale/zhCN'
+const i18n = new VueI18n({
+  locale: queryString.parse(location.search).locale || 'zhCN',
+  messages: {
+    zhCN: { message: zhCN },
+    enUS: { message: enUS },
+  }
+})
+
+new Vue({
+  i18n,
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");
+```
+
+使用的时候用 this.$t 函数
+
+## 打包 高效构建打包发布
+
+主要通过webpack进行优化
+
+生成打包报告
+npm run build -- --report
+
+https://github.com/vueComponent/ant-design-vue/issues/325
+
+发现 ant-design-vue/icon 包很大 可以按需加载
+发现 moment 包很大 可以按需加载
+发现 echart 也可以按需加载
+
+一顿操作后 2.24MB => 1.05MB

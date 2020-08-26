@@ -1,4 +1,5 @@
 const path = require('path')
+const webpack = require('webpack')
 
 const AntDesignThemePlugin = require('antd-theme-webpack-plugin');
 
@@ -50,7 +51,13 @@ module.exports = {
     }
   },
   configureWebpack: {
-    plugins: [themePlugin]
+    // 忽略 moment 的语言包 如需引用  手动加载
+    plugins: [themePlugin, new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)],
+    resolve: {
+      alias: {
+        "@ant-design/icons/lib/dist$": path.resolve(__dirname, "./src/icons.js")
+      }
+    }
   },
   css: {
     // 给 css 相关 loader 传递选项
