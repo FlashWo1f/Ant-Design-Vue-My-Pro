@@ -5,15 +5,12 @@
         Hover me
         <a-icon type="down" />
       </a>
-      <a-menu slot="overlay" @click="handleMenuClick">
-        <a-menu-item :key="1">
-          <a href="javascript:;">1st menu item</a>
+      <a-menu slot="overlay" @click="handleMenuClick" :selectedKeys="[$route.query.locale || 'zhCN']">
+        <a-menu-item key="zhCN">
+          <a href="javascript:;">中文</a>
         </a-menu-item>
-        <a-menu-item :key="2">
-          <a href="javascript:;">2nd menu item</a>
-        </a-menu-item>
-        <a-menu-item :key="3">
-          <a href="javascript:;">3rd menu item</a>
+        <a-menu-item key="enUS">
+          <a href="javascript:;">English</a>
         </a-menu-item>
       </a-menu>
     </a-dropdown>
@@ -28,8 +25,10 @@ export default {
     };
   },
   methods: {
-    handleMenuClick(e) {
-      console.log("menu click  ", e);
+    handleMenuClick({ key }) {
+      // console.log("menu click  ", e);
+      this.$router.push({query: {...this.$router.query, locale: key}})
+      this.$i18n.locale = key
     }
   }
 };
