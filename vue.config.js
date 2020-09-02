@@ -19,6 +19,14 @@ const themePlugin = new AntDesignThemePlugin(options);
 
 module.exports = {
   lintOnSave: false,
+  // module: {
+  //   rules: [
+  //     {
+  //       test: /\.txt$/i,
+  //       use: 'raw-loader',
+  //     },
+  //   ],
+  // },
   devServer: {
     port: "4396",
     overlay: {

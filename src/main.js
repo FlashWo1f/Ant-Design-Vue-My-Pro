@@ -24,8 +24,12 @@ import queryString from 'querystring'
 import "ant-design-vue/dist/antd.less";
 import Authorized from "@/components/Authorized";
 import Auth from "@/directives/auth";
+import VueHighLightJs from 'vue-highlightjs'
+// 引用css 高亮  https://highlightjs.org
+import 'highlight.js/styles/github.css'
 
 Vue.config.productionTip = false;
+Vue.use(VueHighLightJs);
 Vue.use(Button);
 Vue.use(Layout);
 Vue.use(Icon);

@@ -70,3 +70,28 @@ https://github.com/vueComponent/ant-design-vue/issues/325
 发现 echart 也可以按需加载
 
 一顿操作后 2.24MB => 1.05MB
+
+
+## 如何构建可交互的组件文档
+
+类似 Antd Antd-vue 一样
+
+### 方案1
+
+比较笨。写两份代码。一个用来展现交互 一个用来展示纯代码
+
+### 方案2
+
+利用Webpack一份代码加载两次。 第一次用 Vue-loader 加载 第二次用普通文本加载
+
+https://github.com/webpack-contrib/raw-loader
+
+用该方法显示字符串代码
+
+再利用highlight高亮代码
+yarn add vue-highlightjs
+
+### 方案3
+
+自己写一个loader  成本高
+Antd-Vue 就是使用 vue-antd-md-loader

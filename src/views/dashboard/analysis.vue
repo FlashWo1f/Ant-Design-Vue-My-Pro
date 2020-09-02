@@ -4,15 +4,18 @@
     {{$t('message')['app.dashboard.analysis.timeLabel']}}
     <a-date-picker></a-date-picker>
     <Chart :option="chartOption" style="height: 400px" />
+    <pre v-highlightjs='ChartCode'><code class="html"></code></pre>
   </div>
 </template>
 
 <script>
 import Chart from "@/components/Chart";
+import ChartCode from '!!raw-loader!../../components/Chart';
 import request from '@/utils/request'
 // import axios from "axios";
 export default {
   data() {
+    this.ChartCode = ChartCode
     return {
       chartOption: {}
     };
