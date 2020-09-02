@@ -95,3 +95,10 @@ yarn add vue-highlightjs
 
 自己写一个loader  成本高
 Antd-Vue 就是使用 vue-antd-md-loader
+
+
+## 发布npm
+
+1. 需要npm 账号 和对应的 源  平时使用的是淘宝源 如果发npm  需要调到官方源上
+2. package.json
+3. 切换 npm 源 nrm 工具管理多个源   发公司内部 肯定切换到公司内部的源上
